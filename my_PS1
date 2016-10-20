@@ -1,0 +1,50 @@
+# Variables for colour
+COLOR_RED="\033[0;31m"
+COLOR_YELLOW="\033[0;33m"
+COLOR_GREEN="\033[0;32m"
+COLOR_OCHRE="\033[38;5;95m"
+COLOR_BLUE="\033[0;34m"
+COLOR_BLUE_LIGHT="\033[1;34m"
+COLOR_WHITE="\033[0;37m"
+COLOR_RESET="\033[0m"
+
+# Variables for git status (git in portuguese)
+function git_color {
+  local git_status="$(git status 2> /dev/null)"
+
+  if [[ ! $git_status =~ "diretório de trabalho vazio" ]]; then
+    echo -e $COLOR_RED
+  elif [[ $git_status =~ "Seu ramo está à frente de" ]]; then
+    echo -e $COLOR_YELLOW
+  elif [[ $git_status =~ "nada a submeter" ]]; then
+    echo -e $COLOR_GREEN
+  else
+    echo -e $COLOR_OCHRE
+  fi
+}
+
+# Variables to git branch git in portuguese)
+function git_branch {
+  local git_status="$(git status 2> /dev/null)"
+  local on_branch="No ramo ([^${IFS}]*)"
+  local on_commit="HEAD detached at ([^${IFS}]*)"
+
+  if [[ $git_status =~ $on_branch ]]; then
+    local branch=${BASH_REMATCH[1]}
+    echo "($branch)"
+  elif [[ $git_status =~ $on_commit ]]; then
+    local commit=${BASH_REMATCH[1]}
+    echo "($commit)"
+  fi
+}
+
+# My PS1 with colour
+MY_PS1="\[$COLOR_BLUE_LIGHT\][\w]"              # basename of pwd
+MY_PS1+="\[\$(git_color)\]"                     # colors git status
+MY_PS1+="\$(git_branch)"                        # prints current branch
+MY_PS1+="\[$COLOR_OCHRE\]\$ \[$COLOR_RESET\] "  # '#' for root, else '$'
+
+# My PS1 without_color
+MY_PS1_WC="[\w]"              # basename of pwd
+MY_PS1_WC+="\$(git_branch)"   # prints current branch
+MY_PS1_WC+="\$ "              # '#' for root, else '$'
