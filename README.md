@@ -5,7 +5,7 @@ Scripts for make life easy in Linux/OsX
 __Thanks to & sources:__
 
 
-__PS1__
+__my_PS1 - Makes PS1 colorfull and prepered for show Git status and branch__
 __________________________________________________________________________________________
 
 Ubuntu Documentation - https://help.ubuntu.com/community/CustomizingBashPrompt
