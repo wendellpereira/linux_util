@@ -7,7 +7,6 @@ alias gts='git status'
 alias gtb='git branch'
 alias gtd='git diff'
 alias gtf='git fetch'
-alias gtline='git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit'
 alias gtlf='gti log --stat'
 
 # my ls aliases
